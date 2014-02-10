@@ -13,15 +13,20 @@ if [ ! -e $SOURCELIST.bk ]; then
 fi
 
 # install list:
-#	vim ctags cscope
+#	vim ctags cscope taglist
 #	g++
-#	git
+#	git subversion
 #	tree
+# network tools:
+#	bind traceroute
 #	server:
 # sudo apt-get install tasksel
 # sudo tasksel install lamp-server
 # sudo apt-get update
 # sudo tasksel install lamp-server
+# Android develop:
+#	adt-bundle-linux.zip (developer.andorid.com download)
+#	openjdk-7-jdk
 
 echo "start -- install vim"
 apt-get install vim
