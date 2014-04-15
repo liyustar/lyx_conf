@@ -13,7 +13,9 @@ if [ ! -e $SOURCELIST.bk ]; then
 fi
 
 # install list:
-#	vim ctags cscope taglist
+#	vim ctags cscope taglist a.vim
+#		wget cscope.sourceforge.net/cscope_maps.vim -O cscope_maps.vim
+#		wget http://www.vim.org/scripts/download_script.php?src_id=7218 -O a.vim
 #	g++
 #	git subversion
 #	tree
