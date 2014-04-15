@@ -1,4 +1,4 @@
-#!/bin/bash
+# add from lyx_conf BEGIN
 
 export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
 
@@ -16,3 +16,5 @@ function unmark {
 function marks {
 	ls -l "$MARKPATH" | sed 's/  / /g' | cut -d' ' -f9- | sed 's/ -/\t-/g' && echo
 }
+
+# add from lyx_conf END
