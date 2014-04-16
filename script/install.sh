@@ -22,6 +22,7 @@ fi
 #	server:
 # sudo apt-get install tasksel
 # sudo tasksel install lamp-server
+#	re-direct default www --> /etc/apache2/sites-available/000-default.conf
 # sudo apt-get update
 # sudo tasksel install lamp-server
 # Android develop:
