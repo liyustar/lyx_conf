@@ -10,6 +10,7 @@ git config --global alias.br branch
 
 git config --global color.ui true
 git config --global core.editor vim
+git config --global core.excludesfile ~/gitignore
 git config --global core.autocrlf false
 git config --global core.safecrlf true
 
