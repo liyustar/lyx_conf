@@ -126,8 +126,10 @@ func! Rungdb()
 endfunc
 
 "
-" CTags的设定  -------------------------
+" CTags cscope 的设定  -------------------------
 " 
+map <C-F10> :!find . -regex ".*[.]c\(pp\)?" -o -name "*.h" > cscope.file <CR>
+map <C-F11> :!cscope -bkq -i cscope.file <CR>
 map <C-F12> :!ctags --c++-kinds=+p --fields=+iaS --extra=+q -R . <CR>
 
 let Tlist_Sort_Type = "name"    " 按照名称排序  
