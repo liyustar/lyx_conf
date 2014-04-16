@@ -132,6 +132,9 @@ map <C-F10> :!find . -regex ".*[.]c\(pp\)?" -o -name "*.h" > cscope.file <CR>
 map <C-F11> :!cscope -bkq -i cscope.file <CR>
 map <C-F12> :!ctags --c++-kinds=+p --fields=+iaS --extra=+q -R . <CR>
 
+" 将cscope的结果输出到quickfix中
+set cscopequickfix=s-,c-,d-,i-,t-,e-
+
 let Tlist_Sort_Type = "name"    " 按照名称排序  
 let Tlist_Use_Right_Window = 1  " 在右侧显示窗口  
 let Tlist_Compart_Format = 1    " 压缩方式  
