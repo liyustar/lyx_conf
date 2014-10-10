@@ -1,5 +1,9 @@
 
 *.o
+*.d
 
 cscope.*
 tags
+
+bin
+gen

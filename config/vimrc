@@ -62,6 +62,9 @@ set shiftwidth=4
 set noexpandtab " 不要用空格代替制表符
 set smarttab " 在行和段开始处使用制表符
 
+set lcs=tab:>-
+set nolist
+
 " 搜索设置
 " set ignorecase "搜索忽略大小写
 set hlsearch " 搜索逐字符高亮
