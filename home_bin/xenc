@@ -1,0 +1,21 @@
+#!/bin/bash
+
+if [ -z $1 ]; then
+    echo "usage: xenc <file | directory> [out]"
+    exit
+fi
+
+FILE=$1
+
+if [ -z $2 ]; then
+    OUTFILE=$FILE.des
+else
+    OUTFILE=$2
+fi
+
+# 将文件打包成tar格式
+tar -cf $FILE.tar $FILE
+# 将tar格式的文件用DES加密
+openssl enc -e -des -in $FILE.tar -out $OUTFILE
+# 删除中间文件
+rm $FILE.tar
