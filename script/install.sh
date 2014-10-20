@@ -16,29 +16,23 @@ fi
 #	vim ctags cscope taglist a.vim
 #		wget cscope.sourceforge.net/cscope_maps.vim -O cscope_maps.vim
 #		wget http://www.vim.org/scripts/download_script.php?src_id=7218 -O a.vim
+#
 #	g++
 #	git subversion
 #	tree
+#
 # network tools:
 #	bind traceroute
 #	server:
 # sudo apt-get install tasksel
-# sudo tasksel install lamp-server
-#	re-direct default www --> /etc/apache2/sites-available/000-default.conf
 # sudo apt-get update
 # sudo tasksel install lamp-server
+#	re-direct default www --> /etc/apache2/sites-available/000-default.conf
+# sudo apt-get install wireshark
+#   sudo chmod a+s /usr/bin/dumpcap
+#
 # Android develop:
 #	adt-bundle-linux.zip (developer.andorid.com download)
 #	openjdk-7-jdk
-
-echo "start -- install vim"
-apt-get install vim
-echo "start -- install git"
-apt-get install git
-echo "start -- install g++"
-apt-get install g++
-echo "start -- install tree"
-apt-get install tree
-
-#sudo apt-get
-
+#   g++-multilib libc6-dev-i386
+#	lib32stdc++6 lib32z1 lib32ncurses5
