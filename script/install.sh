@@ -16,6 +16,7 @@ fi
 #	vim ctags cscope taglist a.vim
 #		wget cscope.sourceforge.net/cscope_maps.vim -O cscope_maps.vim
 #		wget http://www.vim.org/scripts/download_script.php?src_id=7218 -O a.vim
+#       wget http://vim.sourceforge.net/scripts/download_script.php?src_id=6416 -O taglist_42.zip
 #
 #	g++
 #	git subversion
