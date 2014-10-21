@@ -5,7 +5,8 @@ if [ -z $1 ]; then
     exit
 fi
 
-FILE=$1
+FILE_PATH=$1
+FILE=$(basename $FILE_PATH)
 
 if [ -z $2 ]; then
     OUTFILE=$FILE.des
@@ -14,7 +15,7 @@ else
 fi
 
 # 将文件打包成tar格式
-tar -cf $FILE.tar $FILE
+tar -cf $FILE.tar $FILE_PATH
 # 将tar格式的文件用DES加密
 openssl enc -e -des -in $FILE.tar -out $OUTFILE
 # 删除中间文件
