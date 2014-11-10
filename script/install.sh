@@ -25,6 +25,7 @@ fi
 # network tools:
 #	bind traceroute
 #	server:
+# sudo apt-get install openbsd-inetd
 # sudo apt-get install tasksel
 # sudo apt-get update
 # sudo tasksel install lamp-server
