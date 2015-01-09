@@ -1,0 +1,21 @@
+#!/bin/bash
+
+if [ -z $1 ]; then
+    echo "usage: xdec <file | directory> [dest_directory]"
+    exit
+fi
+
+FILE=$1
+
+if [ -z $2 ]; then
+    DSTDIR=.
+else
+    DSTDIR=$2
+fi
+
+# 将DES算法解密文件为tar格式
+openssl enc -d -des -in $FILE -out $FILE.tar
+# 将tar格式文件解包
+tar -xf $FILE.tar -C $DSTDIR
+# 删除中间文件
+rm $FILE.tar

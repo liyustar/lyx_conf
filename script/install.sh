@@ -16,6 +16,7 @@ fi
 #	vim ctags cscope taglist a.vim
 #		wget cscope.sourceforge.net/cscope_maps.vim -O cscope_maps.vim
 #		wget http://www.vim.org/scripts/download_script.php?src_id=7218 -O a.vim
+#       wget http://vim.sourceforge.net/scripts/download_script.php?src_id=6416 -O taglist_42.zip
 #
 #	g++
 #	git subversion
@@ -24,6 +25,7 @@ fi
 # network tools:
 #	bind traceroute
 #	server:
+# sudo apt-get install openbsd-inetd
 # sudo apt-get install tasksel
 # sudo apt-get update
 # sudo tasksel install lamp-server
@@ -34,4 +36,5 @@ fi
 # Android develop:
 #	adt-bundle-linux.zip (developer.andorid.com download)
 #	openjdk-7-jdk
+#   g++-multilib libc6-dev-i386
 #	lib32stdc++6 lib32z1 lib32ncurses5

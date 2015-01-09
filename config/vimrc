@@ -55,6 +55,7 @@ autocmd FileType c,cpp map <buffer> <leader><space> :w<cr>:make<cr>
 set autoindent
 set cindent
 set smartindent " 为C程序提供自动缩进
+set cino=N-s " 取消namespace缩进
 
 set tabstop=4 " Tab键的宽度
 set softtabstop=4 " 统一缩进为4

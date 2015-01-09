@@ -1,0 +1,83 @@
+#!/bin/bash
+
+# diff 相同:0 不同:1 异常:2 PS:二进制文件直接判断为0
+LISTTMP=/tmp/list.t
+MISSTMP=/tmp/miss.t
+FILETMP=/tmp/file.t
+
+function assert_arg {
+if [ $1 -ne $2 ]; then
+    echo "arg num not right, need $1 args"
+    exit 1
+fi
+}
+
+function comp_dir {
+CURDIR=`pwd`
+cd $1
+find > $FILETMP
+cd $CURDIR
+echo $1 > $LISTTMP
+echo $2 >> $LISTTMP
+rm $MISSTMP
+for x in `cat $FILETMP`; do
+    SRC=$1/$x
+    DST=$2/$x
+    if [ -f $DST ]; then
+        diff $SRC $DST > /dev/null
+        if [ 1 -eq $? ]; then
+            echo $x >> $LISTTMP # 两文件对比不同
+        fi
+    else
+        echo $x >> $MISSTMP # 对比目标文件不存在
+    fi
+done
+}
+
+# main
+
+if [ $# -eq 0 ]; then
+    echo "help"
+    exit
+fi
+
+case $1 in
+    "r") # 判断两个文件夹内文件的不同
+        assert_arg 3 $#
+        time comp_dir $2 $3
+        echo "comp done"
+        ;;
+    "u") # 根据LISTTMP的文件参数，更新差异文件列表
+        if [ ! -e $LISTTMP ]; then
+            echo "$LISTTMP not found"
+            exit 1;
+        fi
+        SRCDIR=`sed -n "1p" $LISTTMP`
+        DSTDIR=`sed -n "2p" $LISTTMP`
+        if [ $SRCDIR = "" -o $DSTDIR = "" ]; then
+            echo "No src or dst DIR"
+            exit 1
+        fi
+        time comp_dir $SRCDIR $DSTDIR
+        echo "comp done"
+        ;;
+    "d") # 进行差异列表内的文件比较
+        assert_arg 2 $#
+        LINE=$(($2 + 2))
+        FILE=`sed -n "${LINE}p" $LISTTMP`
+        # echo $SRC_FILE
+        SRCDIR=`sed -n "1p" $LISTTMP`
+        DSTDIR=`sed -n "2p" $LISTTMP`
+        vimdiff $SRCDIR/$FILE $DSTDIR/$FILE
+        ;;
+    "v") # 调试用， 查看差异列表
+        assert_arg 2 $#
+        LINE=$(($2 + 2))
+        FILE=`sed -n "${LINE}p" $LISTTMP`
+        echo $SRC_FILE
+        ;;
+    "l") # 列出差异列表index
+        awk 'BEGIN{line=0;} NR>2{printf("%d %s\n", ++line, $1);}' $LISTTMP
+        ;;
+esac
+
