@@ -66,8 +66,6 @@ set smarttab " 在行和段开始处使用制表符
 set list
 set listchars=tab:>-,trail:-
 
-set cino=N-s
-
 " 搜索设置
 " set ignorecase "搜索忽略大小写
 set hlsearch " 搜索逐字符高亮
