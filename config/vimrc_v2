@@ -13,6 +13,7 @@ Bundle 'davidhalter/jedi-vim'
 Bundle 'winmanager'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'plasticboy/vim-markdown'
+Bundle 'SirVer/ultisnips'
 
 Bundle 'cscope.vim'
 Bundle 'taglist.vim'
@@ -34,6 +35,14 @@ set fileencoding=utf-8
 " 实用设置
 set number          " 显示行号
 syntax on           " 语法高亮
+set history=1000
+set autoread        " 设置当文件被改动时自动载入
+set autowrite       " 自动保存
+set nobackup
+set noswapfile
+set noeb
+set scrolloff=4     " 光标移动到buffer的顶部和底部时保持4行距离
+set fillchars=vert:\ ,stl:\ ,stlnc:\    " 在被分割的窗口间现实空白，便于
 
 " 自动缩进
 set autoindent
@@ -54,15 +63,19 @@ set listchars=tab:>-,trail:-
 set hlsearch        " 搜索逐字符高亮
 set incsearch
 " set ignorecase      " 搜索忽略大小写
+set showmatch       " 高亮现实匹配的括号
+set matchtime=1     " 匹配括号高亮的时间（单位是十分之一秒）
+set iskeyword+=_
+
 
 augroup vimrc_autocmds
     autocmd!
     autocmd FileType python highlight Excess ctermbg=DarkGrey guibg=Black
     autocmd FileType python match Excess /\%120v.*/
     autocmd FileType python set nowrap
-    autocmd FileType h,cpp,cc,c highlight Excess ctermbg=DarkGrey guibg=Black
-    autocmd FileType h,cpp,cc,c match Excess /\%120v.*/
-    autocmd FileType h,cpp,cc,c set nowrap
+    " autocmd FileType h,cpp,cc,c highlight Excess ctermbg=DarkGrey guibg=Black
+    " autocmd FileType h,cpp,cc,c match Excess /\%120v.*/
+    " autocmd FileType h,cpp,cc,c set nowrap
 augroup END
 
 " Powerline setup
@@ -72,6 +85,16 @@ set laststatus=2
 
 " NERDTree setup
 map <C-@> :NERDTreeToggle<CR>
+
+" YouCompleteMe setup
+let g:ycm_confirm_extra_conf = 0
+" let g:ycm_error_symbol = '>>'
+" let g:ycm_warning_symbol = '>*'
+nnoremap <leader>gl :YcmCompleter GoToDeclaration<CR>
+nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
+nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
+nmap <leader>dd :YcmDiags<CR>
+let g:ycm_key_list_select_completion = ['<C-N>', '<Down>']
 
 " jedi-vim setup
 let g:jedi#popup_select_first = 0
