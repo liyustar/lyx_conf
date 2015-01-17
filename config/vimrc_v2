@@ -4,6 +4,7 @@ filetype off
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
+" https://github.com/gmarik/Vundle.vim.git
 Bundle 'gmarik/vundle'
 Bundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 Bundle 'tpope/vim-fugitive'
@@ -71,8 +72,8 @@ set listchars=tab:>-,trail:-
 set hlsearch        " 搜索逐字符高亮
 set incsearch
 " set ignorecase      " 搜索忽略大小写
-set showmatch       " 高亮现实匹配的括号
-set matchtime=1     " 匹配括号高亮的时间（单位是十分之一秒）
+" set showmatch       " 高亮现实匹配的括号
+" set matchtime=1     " 匹配括号高亮的时间（单位是十分之一秒）
 set iskeyword+=_
 
 
@@ -107,6 +108,17 @@ nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
 nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
 nmap <leader>dd :YcmDiags<CR>
 let g:ycm_key_list_select_completion = ['<C-N>', '<Down>']
+
+" ultisnips setup
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<C-C>"
+let g:UltiSnipsJumpForwardTrigger="<C-B>"
+let g:UltiSnipsJumpBackwardTrigger="<C-Z>"
+" let g:UltiSnipsSnippetDirectories=["snippets", "bundle/ultisnips/UltiSnips"]
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+
 
 " jedi-vim setup
 let g:jedi#popup_select_first = 0
@@ -169,6 +181,10 @@ nmap <leader>bb :Tabularize /=<CR>
 " \bn 自定义对齐    [Tabular插件]
 nmap <leader>bn :Tabularize /
 
+" NERDCommenter setup
+let NERDSpaceDelims = 1
+let NERDRemoveExtraSpaces = 1
+
 " tagbar setup
 nmap <leader>tb :TagbarToggle<CR>
 let g:tagbar_autofocus = 1
@@ -178,5 +194,5 @@ let g:molokai_original = 1
 let g:rehash256 = 1
 set background=dark " dark or light
 set t_Co=256
-" colorscheme solarized
-colorscheme molokai
+colorscheme solarized
+" colorscheme molokai
