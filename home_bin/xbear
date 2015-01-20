@@ -2,6 +2,14 @@
 
 OUTFILE=bear_find_h.t
 
+if [ ! -z $1 ] ; then
+    echo "find include dir"
+    find . -name "include" -type d | \
+        sort | uniq | \
+        awk "{printf(\"'-I',\n'%s',\n\", \$1); }" > $OUTFILE
+    exit 0
+fi
+
 find . -name "*.h" | \
     xargs dirname | sort | uniq | \
     awk "{printf(\"'-I',\n'%s',\n\", \$1); }" > $OUTFILE
