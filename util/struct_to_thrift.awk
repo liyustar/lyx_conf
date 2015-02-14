@@ -42,6 +42,11 @@
 BEGIN {
     FS = " "
     num = 1
+
+    type["INT32"]  = "i32"
+    type["INT64"]  = "i64"
+    type["String"] = "string"
+
     print "struct " STRUCT_NAME " {"
 }
 
@@ -86,16 +91,16 @@ NF < 2 {
     for (i = 1; i <= len; i++) {
         name = (a[1] "" i)
         if (i == 1)
-            printf("    %2d: %-8s %-12s // %s\n", num++, $3, name, $2)
+            printf("    %2d: %-8s %-12s // %s\n", num++, type[$3], name, $2)
         else
-            printf("    %2d: %-8s %-12s\n", num++, $3, name)
+            printf("    %2d: %-8s %-12s\n", num++, type[$3], name)
     }
     next
 }
 
 # 4. 正常非数组字段
 {
-    printf("    %2d: %-8s %-12s // %s\n", num++, $3, $1, $2)
+    printf("    %2d: %-8s %-12s // %s\n", num++, type[$3], $1, $2)
 }
 
 END {
