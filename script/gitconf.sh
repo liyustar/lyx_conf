@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo "gitconf.sh begin"
+
 git config --global user.name "liyustar"
 git config --global user.email "liyustar@gmail.com"
 
@@ -16,4 +18,9 @@ git config --global core.safecrlf true
 
 git config --global push.default simple
 
-git config -l # list all config
+# git config -l # list all config
+
+# gitignore
+ln -sf -T $EXCDIR/config/gitignore $HOME/.gitignore
+
+echo "gitconf.sh end"
