@@ -1,0 +1,51 @@
+#!/bin/bash
+
+APP=('redis' 'jdk')
+INDEX=
+URL=('http://download.redis.io/releases/redis-3.0.0.tar.gz' '')
+
+# init
+LEN=${#APP[@]}
+for ((i=0; i<$LEN; i++)); do
+    INDEX[${APP[$i]}]=$i
+done
+
+
+while getopts "ld:a:bc" arg
+do
+    case $arg in
+        l)  # list
+            # find pkg
+            for ((i=0; i<$LEN; i++)); do
+                echo -e "$i) ${APP[$i]}\t${URL[$i]}"
+            done
+            ;;
+        d)  # download
+            URL_TO_DOWNLOAD=${URL[$OPTARG]}
+            APP_TO_DOWNLOAD=${APP[$OPTARG]}
+            if [ -n $URL_TO_DOWNLOAD ]; then
+                echo "begin download $APP_TO_DOWNLOAD"
+                wget $URL_TO_DOWNLOAD
+                echo "end download $APP_TO_DOWNLOAD"
+            else
+                echo "error download: argument invaild"
+                exit 1
+            fi
+            ;;
+        b)
+            if [ ! -n $OPTARG ]; then
+                echo "xx"
+            else
+                echo "optarg: " $OPTARG
+            fi
+            ;;
+        c)
+            echo "c"
+            ;;
+        ?)
+            echo "unknow argument"
+            exit 1
+            ;;
+    esac
+done
+

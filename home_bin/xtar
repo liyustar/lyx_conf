@@ -1,0 +1,84 @@
+#!/bin/bash
+
+# 整合一些压缩和解压命令
+
+function error_cmd {
+echo "error CMD"
+exit 1
+}
+
+function error_type {
+echo "error TYPE"
+exit 1
+}
+
+function erro_not_impl {
+echo "error NOT IMPL"
+exit 1
+}
+
+T_FILE=
+T_CMD=
+T_DIR=
+T_TYPE=
+
+while getopts "f:d:xct:" arg
+do
+    case $arg in
+        f)  # tar file
+            T_FILE=$OPTARG
+            ;;
+        d)  # directory
+            T_DIR=$OPTARG
+            ;;
+        x)
+            T_CMD="UNCOMPRESS"
+            ;;
+        c)
+            T_CMD="COMPRESS"
+            ;;
+        t)  # type, eg: zip, tar, gz, bz2
+            T_TYPE=$OPTARG
+            ;;
+        ?)
+            echo "unknow argument"
+            exit 1
+    esac
+done
+
+if [ -z "$T_TYPE" ]; then
+    T_TYPE=${T_FILE##*.}
+fi
+
+if [ "$T_TYPE" == "tar" ]; then
+    if [ "$T_CMD" == "UNCOMPRESS" ]; then
+        if [ -z "$T_DIR" ]; then
+            T_DIR=.
+        fi
+        T_DIR="-C $T_DIR"
+        tar xf "$T_FILE" $T_DIR
+        exit $?
+    elif [ "$T_CMD" == "COMPRESS" ]; then
+        error_not_impl
+    else
+        error_cmd
+    fi
+elif [ "$T_TYPE" == "gz" ]; then
+    if [ "$T_CMD" == "UNCOMPRESS" ]; then
+        if [ -z "$T_DIR" ]; then
+            T_DIR=.
+        fi
+        T_DIR="-C $T_DIR"
+        tar zxf "$T_FILE" $T_DIR
+        exit $?
+    elif [ "$T_CMD" == "COMPRESS" ]; then
+        error_not_impl
+    else
+        error_cmd
+    fi
+elif [ "$T_TYPE" == "test" ]; then
+    echo "test TYPE"
+else
+    error_type
+fi
+
