@@ -52,6 +52,7 @@ fi
 
 if [ "$T_TYPE" == "tar" ]; then
     if [ "$T_CMD" == "UNCOMPRESS" ]; then
+        # tar的解压
         if [ -z "$T_DIR" ]; then
             T_DIR=.
         fi
@@ -59,12 +60,14 @@ if [ "$T_TYPE" == "tar" ]; then
         tar xf "$T_FILE" $T_DIR
         exit $?
     elif [ "$T_CMD" == "COMPRESS" ]; then
+        # tar的压缩
         error_not_impl
     else
         error_cmd
     fi
 elif [ "$T_TYPE" == "gz" ]; then
     if [ "$T_CMD" == "UNCOMPRESS" ]; then
+        # gz的解压
         if [ -z "$T_DIR" ]; then
             T_DIR=.
         fi
@@ -72,6 +75,7 @@ elif [ "$T_TYPE" == "gz" ]; then
         tar zxf "$T_FILE" $T_DIR
         exit $?
     elif [ "$T_CMD" == "COMPRESS" ]; then
+        # gz的压缩
         error_not_impl
     else
         error_cmd

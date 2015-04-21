@@ -16,6 +16,13 @@ do
     case $arg in
         l)  # list
             # find pkg
+            for x in $(ls); do
+                # for app in APP
+                # if $x = app; then DIR[I] = $x
+                echo $x
+            done
+            exit 0
+            # list app
             for ((i=0; i<$LEN; i++)); do
                 echo -e "$i) ${APP[$i]}\t${URL[$i]}"
             done
