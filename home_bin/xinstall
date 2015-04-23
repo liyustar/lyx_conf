@@ -11,7 +11,7 @@ for ((i=0; i<$LEN; i++)); do
 done
 
 
-while getopts "ld:a:bc" arg
+while getopts "ld:a:bci:" arg
 do
     case $arg in
         l)  # list
@@ -39,8 +39,12 @@ do
                 echo "optarg: " $OPTARG
             fi
             ;;
-        c)
-            echo "c"
+        i)  # install
+            case $ARGOPT in
+                'svn')
+                    install_svn
+                    ;;
+            esac
             ;;
         ?)
             echo "unknow argument"
