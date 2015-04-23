@@ -1,8 +1,9 @@
 #!/bin/bash
 
-APP=('redis' 'jdk')
+APP=('redis' 'jdk' 'svn')
 INDEX=
 URL=('http://download.redis.io/releases/redis-3.0.0.tar.gz' '')
+INSTALL_FUN=('' '' install_svn)
 
 # init
 LEN=${#APP[@]}
@@ -10,6 +11,17 @@ for ((i=0; i<$LEN; i++)); do
     INDEX[${APP[$i]}]=$i
 done
 
+# 安装SVN,作配置
+function install_svn {
+if [ ! -e $HOME/.subversion ]; then
+    echo 'error ~/.subversion not found'
+    exit 1
+fi
+
+sed -i 's/.*editor-cmd =.*/editor-cmd = vim/' $HOME/.subversion/config
+sed -i 's/.*diff-cmd =.*/diff-cmd = colordiff/' $HOME/.subversion/config
+echo 'install_svn DONE!'
+}
 
 while getopts "ld:a:bci:" arg
 do
@@ -47,11 +59,7 @@ do
             fi
             ;;
         i)  # install
-            case $ARGOPT in
-                'svn')
-                    install_svn
-                    ;;
-            esac
+            ${INSTALL_FUN[$OPTARG]}
             ;;
         ?)
             echo "unknow argument"
