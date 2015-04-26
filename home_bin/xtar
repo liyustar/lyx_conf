@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # 整合一些压缩和解压命令
+# usage: xtar -(x|c) -f <file.tar> -d <dir> [-t tar]
 
 function error_cmd {
 echo "error CMD"

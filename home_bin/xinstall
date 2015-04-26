@@ -1,15 +1,47 @@
 #!/bin/bash
 
 APP=('redis' 'jdk' 'svn')
+PATTEN=("redis.*" "^jdk*" "^svn*")
+APPDIR=
 INDEX=
 URL=('http://download.redis.io/releases/redis-3.0.0.tar.gz' '')
-INSTALL_FUN=('' '' install_svn)
+INSTALL_FUN=(install_redis '' install_svn)
+DEF_PROFILE='~/.bashrc'
+DEF_INSDIR='.'
 
 # init
 LEN=${#APP[@]}
 for ((i=0; i<$LEN; i++)); do
     INDEX[${APP[$i]}]=$i
 done
+
+# 安装Redis
+function install_redis {
+PKG='redis-3.0.0.tar.gz'
+PST='redis-3.0.0'
+INSDIR=${1:-$DEF_INSDIR}
+PROFILE=${2:-$DEF_PROFILE}
+echo "install redis: $INSDIR $PROFILE"
+
+if [ -e $PST ]; then
+    echo "install failed: redis exists."
+    exit 1
+fi
+
+# 如果目录不存在，则解压
+xtar -x -f $PKG -d $INSDIR
+make -C $INSDIR/$PST \
+|| echo "# INSTALL_REDIS_DONE" >> $PROFILE  \
+|| echo "export PATH=\$PATH:$INSDIR/$PST/src" >> $PROFILE   \
+|| source $PROFILE
+
+if [ 0 -eq $? ]; then
+    echo "install redis: DONE!"
+else
+    echo "install redis: FAILED!"
+    exit 1
+fi
+}
 
 # 安装SVN,作配置
 function install_svn {
@@ -26,16 +58,23 @@ echo 'install_svn DONE!'
 while getopts "ld:a:bci:" arg
 do
     case $arg in
-        l)  # list
-            # find pkg
-            for x in $(ls); do
-                # for app in APP
-                # if $x = app; then DIR[I] = $x
-                echo $x
+        l)  # 列表显示
+            # 找APP包的目录，如果找到，则修改APPDIR参数
+            for ((i=0; i<$LEN; i++)); do
+                APPDIR[$i]="[NONE]"
+                for j in $(ls); do
+                    PAT=${PATTEN[$i]}
+                    # echo "$PAT $j"
+                    if [ $PAT == $j ]; then
+                        APPDIR[$i]=$j
+                        break
+                    fi
+                done
             done
-            exit 0
+
             # list app
             for ((i=0; i<$LEN; i++)); do
+                # echo -e "$i) ${APP[$i]}\t${APPDIR[$i]}\t${URL[$i]}"
                 echo -e "$i) ${APP[$i]}\t${URL[$i]}"
             done
             ;;
