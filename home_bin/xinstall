@@ -31,9 +31,9 @@ fi
 # 如果目录不存在，则解压
 xtar -x -f $PKG -d $INSDIR
 make -C $INSDIR/$PST \
-|| echo "# INSTALL_REDIS_DONE" >> $PROFILE  \
-|| echo "export PATH=\$PATH:$INSDIR/$PST/src" >> $PROFILE   \
-|| source $PROFILE
+&& echo "# INSTALL_REDIS_DONE" >> $PROFILE  \
+&& echo "export PATH=\$PATH:$PWD/$INSDIR/$PST/src" >> $PROFILE   \
+&& source $PROFILE
 
 if [ 0 -eq $? ]; then
     echo "install redis: DONE!"
