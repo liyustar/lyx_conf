@@ -1,12 +1,15 @@
 #!/bin/bash
 
-APP=('redis' 'jdk' 'svn')
-PATTEN=("redis.*" "^jdk*" "^svn*")
+APP=('redis' 'jdk' 'svn' 'hadoop' 'hbase')
+PATTEN=("redis.*" "^jdk*" "^svn*" "hadoop.*" "hbase.*")
 APPDIR=
 INDEX=
-URL=('http://download.redis.io/releases/redis-3.0.0.tar.gz' 'http://download.oracle.com/otn-pub/java/jdk/7u79-b15/jdk-7u79-linux-x64.tar.gz' '[ERROR:svn]')
-INSTALL_FUN=(install_redis install_jdk install_svn)
+URL=('http://download.redis.io/releases/redis-3.0.0.tar.gz' 'http://download.oracle.com/otn-pub/java/jdk/7u79-b15/jdk-7u79-linux-x64.tar.gz' '[ERROR:svn]' 'HADOOP_URL' 'HBASE_URL')
+# 安装各种包的bash方法名
+INSTALL_FUN=(install_redis install_jdk install_svn install_hadoop install_hbase)
+# 默认的配置文件路径，配置环境变量
 DEF_PROFILE="$HOME/.bashrc"
+# 默认安装路径，当前路径
 DEF_INSDIR='.'
 
 # init
@@ -71,6 +74,62 @@ else
 fi
 }
 
+# 安装Hadoop
+function install_hadoop {
+PKG='hadoop-2.7.0.tar.gz'
+PST='hadoop'
+INSDIR=${1:-$DEF_INSDIR}
+PROFILE=${2:-$DEF_PROFILE}
+echo "install hadoop: $INSDIR $PROFILE"
+
+if [ -e $PST ]; then
+    echo "install failed: hadoop exists."
+    exit 1
+fi
+
+# 如果目录不存在，则解压
+xtar -x -f $PKG -d $INSDIR
+echo "# INSTALL_JDK_DONE" >> $PROFILE  \
+&& echo "export JAVA_HOME=$PWD/$INSDIR/$PST" >> $PROFILE    \
+&& echo "export PATH=\$PATH:\$JAVA_HOME/bin" >> $PROFILE    \
+&& source $PROFILE
+
+if [ 0 -eq $? ]; then
+    echo "install hadoop: DONE!"
+else
+    echo "install hadoop: FAILED!"
+    exit 1
+fi
+}
+
+# 安装Hbase
+function install_hbase {
+PKG='hbase-1.0.1-bin.tar.gz'
+PST='hbase'
+INSDIR=${1:-$DEF_INSDIR}
+PROFILE=${2:-$DEF_PROFILE}
+echo "install hbase: $INSDIR $PROFILE"
+
+if [ -e $PST ]; then
+    echo "install failed: hbase exists."
+    exit 1
+fi
+
+# 如果目录不存在，则解压
+xtar -x -f $PKG -d $INSDIR
+echo "# INSTALL_JDK_DONE" >> $PROFILE  \
+&& echo "export JAVA_HOME=$PWD/$INSDIR/$PST" >> $PROFILE    \
+&& echo "export PATH=\$PATH:\$JAVA_HOME/bin" >> $PROFILE    \
+&& source $PROFILE
+
+if [ 0 -eq $? ]; then
+    echo "install hbase: DONE!"
+else
+    echo "install hbase: FAILED!"
+    exit 1
+fi
+}
+
 # 安装SVN,作配置
 function install_svn {
 if [ ! -e $HOME/.subversion ]; then
@@ -83,7 +142,21 @@ sed -i 's/.*diff-cmd =.*/diff-cmd = colordiff/' $HOME/.subversion/config
 echo 'install_svn DONE!'
 }
 
-while getopts "ld:a:bci:" arg
+function usage {
+echo "usage:"
+echo "  xinstall -l"
+echo "  xinstall -d <download_node>"
+echo "  xinstall [-p <install_path>] [-e <env_path>] -i <install_node> "
+echo "  -p : uncompass path, must before -i"
+echo "  -e : envirnment config path, must before -i"
+}
+
+if [ $# -eq 0 ]; then
+    usage
+    exit 0
+fi
+
+while getopts "ld:i:p:e:" arg
 do
     case $arg in
         l)  # 列表显示
@@ -118,15 +191,15 @@ do
                 exit 1
             fi
             ;;
-        b)
-            if [ ! -n $OPTARG ]; then
-                echo "xx"
-            else
-                echo "optarg: " $OPTARG
-            fi
-            ;;
         i)  # install
             ${INSTALL_FUN[$OPTARG]}
+            ;;
+        p)  # set install path
+            mkdir -p $OPTARG
+            DEF_INSDIR=$OPTARG
+            ;;
+        e)  # set envirnment config path
+            DEF_PROFILE=$OPTARG
             ;;
         ?)
             echo "unknow argument"

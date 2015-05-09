@@ -23,6 +23,11 @@ T_CMD=
 T_DIR=
 T_TYPE=
 
+if [ $# -eq 0 ]; then
+    echo "usage: xtar -(x|c) -f <file.tar> -d <dir> [-t tar]"
+    exit 0
+fi
+
 while getopts "f:d:xct:" arg
 do
     case $arg in
