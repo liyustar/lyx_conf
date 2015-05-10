@@ -1,5 +1,7 @@
 #!/bin/bash
 
+LOCAL_CONF=/home/lyx/Work/gitget/lyx_conf/config
+
 APP=('redis' 'jdk' 'svn' 'hadoop' 'hbase')
 PATTEN=("redis.*" "^jdk*" "^svn*" "hadoop.*" "hbase.*")
 APPDIR=
@@ -92,7 +94,13 @@ xtar -x -f $PKG -d $INSDIR
 echo "# INSTALL_HADOOP_DONE" >> $PROFILE  \
 && echo "export HADOOP_HOME=$PWD/$INSDIR/$PST" >> $PROFILE    \
 && echo "export PATH=\$PATH:\$HADOOP_HOME/bin" >> $PROFILE    \
+&& echo "export PATH=\$PATH:\$HADOOP_HOME/sbin" >> $PROFILE    \
 && source $PROFILE
+
+# Hadoop的环境准备
+sed -i "s:\${JAVA_HOME}:$JAVA_HOME:" $INSDIR/$PST/etc/hadoop/hadoop-env.sh
+# 复制配置文件
+cp $LOCAL_CONF/hadoop/* $HADOOP_HOME/etc/hadoop
 
 if [ 0 -eq $? ]; then
     echo "install hadoop: DONE!"
@@ -121,6 +129,9 @@ echo "# INSTALL_HBASE_DONE" >> $PROFILE  \
 && echo "export HBASE_HOME=$PWD/$INSDIR/$PST" >> $PROFILE    \
 && echo "export PATH=\$PATH:\$HBASE_HOME/bin" >> $PROFILE    \
 && source $PROFILE
+
+# 复制配置文件
+cp $LOCAL_CONF/hbase/* $HADOOP_HOME/conf
 
 if [ 0 -eq $? ]; then
     echo "install hbase: DONE!"

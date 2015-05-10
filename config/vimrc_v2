@@ -7,14 +7,14 @@ call vundle#rc()
 " https://github.com/gmarik/Vundle.vim.git
 Bundle 'gmarik/vundle'
 Bundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
-Bundle 'tpope/vim-fugitive'
+" Bundle 'tpope/vim-fugitive'
 Bundle 'scrooloose/nerdtree'
-Bundle 'davidhalter/jedi-vim'
+" Bundle 'davidhalter/jedi-vim'
 " Bundle 'klen/python-mode'
-Bundle 'winmanager'
-Bundle 'Valloric/YouCompleteMe'
-Bundle 'plasticboy/vim-markdown'
-Bundle 'SirVer/ultisnips'
+" Bundle 'winmanager'
+" Bundle 'Valloric/YouCompleteMe'
+" Bundle 'plasticboy/vim-markdown'
+" Bundle 'SirVer/ultisnips'
 Bundle 'majutsushi/tagbar'
 Bundle 'fholgado/minibufexpl.vim'
 Bundle 'scrooloose/nerdcommenter'
@@ -26,7 +26,7 @@ Bundle 'a.vim'
 
 " 配色方案
 Bundle 'tomasr/molokai'
-Bundle 'altercation/vim-colors-solarized'
+" Bundle 'altercation/vim-colors-solarized'
 
 filetype plugin indent on
 
@@ -194,5 +194,5 @@ let g:molokai_original = 1
 let g:rehash256 = 1
 set background=dark " dark or light
 set t_Co=256
-colorscheme solarized
-" colorscheme molokai
+" colorscheme solarized
+colorscheme molokai
