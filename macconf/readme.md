@@ -1,3 +1,3 @@
 #### install.sh
-* change zsh
-* 
+* change to zsh
+* install oh-my-zsh
