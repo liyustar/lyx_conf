@@ -11,6 +11,7 @@ if [ "$SHELL" != "$(which zsh)" ]; then
   exit
 fi
 
+
 # install oh-my-zsh
 if [ ! -e "$HOME/.oh-my-zsh" ]; then
   xecho "Installing oh-my-zsh ..."
@@ -18,5 +19,15 @@ if [ ! -e "$HOME/.oh-my-zsh" ]; then
   xecho "Done oh-my-zsh!"
 else
   xecho "Have exists: .oh-my-zsh"
+fi
+
+
+# install Homebrew
+if [ -z "$(brew --version)" ]; then
+  xecho "Installing Homebrew ..."
+  # /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  xecho "Done Homebrew!"
+else
+  xecho "Have exists: Homebrew"
 fi
 
