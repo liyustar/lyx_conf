@@ -7,7 +7,7 @@ call vundle#begin()
 " https://github.com/gmarik/Vundle.vim.git
 Plugin 'VundleVim/Vundle.vim'
 
-" Bundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
+Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 " " Bundle 'tpope/vim-fugitive'
 Plugin 'scrooloose/nerdtree'
 " " Bundle 'davidhalter/jedi-vim'
@@ -17,7 +17,7 @@ Plugin 'scrooloose/nerdtree'
 " " Bundle 'plasticboy/vim-markdown'
 " " Bundle 'SirVer/ultisnips'
 " Bundle 'majutsushi/tagbar'
-" Bundle 'fholgado/minibufexpl.vim'
+Plugin 'fholgado/minibufexpl.vim'
 " Bundle 'scrooloose/nerdcommenter'
 " Bundle 'godlygeek/tabular'
 " 
@@ -92,11 +92,11 @@ set listchars=tab:>-,trail:-
 " " 自定义快捷键
 " nmap <leader>n :cn<CR>
 " nmap <leader>p :cp<CR>
-" 
-" " Powerline setup
-" set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 9
-" set laststatus=2
-" " set cmdheight=2     " 命令行（在状态行下）的高度，默认为1，这里是2
+
+" Powerline setup
+set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 9
+set laststatus=2
+" set cmdheight=2     " 命令行（在状态行下）的高度，默认为1，这里是2
 
 " NERDTree setup
 map <C-@> :NERDTreeToggle<CR>
