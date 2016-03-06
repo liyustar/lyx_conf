@@ -1,0 +1,6 @@
+unbind C-b
+set -g prefix C-z
+
+# bind a reload key
+# bind R source-file $HOME/.tmux.conf ; display-message "Config reloaded.."
+

@@ -7,3 +7,5 @@ tags
 
 bin
 gen
+
+.DS_Store
