@@ -70,15 +70,19 @@ set smarttab        " 在行和段开始处使用制表符
 set list
 set listchars=tab:>-,trail:-
 
-" " 搜索设置
-" set hlsearch        " 搜索逐字符高亮
-" set incsearch
-" " set ignorecase      " 搜索忽略大小写
-" " set showmatch       " 高亮现实匹配的括号
-" " set matchtime=1     " 匹配括号高亮的时间（单位是十分之一秒）
-" set iskeyword+=_
-" 
-" 
+" 搜索设置
+set hlsearch        " 搜索逐字符高亮
+set incsearch
+" set ignorecase      " 搜索忽略大小写
+" set showmatch       " 高亮现实匹配的括号
+" set matchtime=1     " 匹配括号高亮的时间（单位是十分之一秒）
+set iskeyword+=_
+
+" Tmux设置
+if exists('$TMUX')
+    set term=screen-256color
+endif
+
 " augroup vimrc_autocmds
 "     autocmd!
 "     autocmd FileType python highlight Excess ctermbg=DarkGrey guibg=Black
