@@ -41,15 +41,6 @@ else
   xecho "Have exists: Homebrew"
 fi
 
-
-# install tmux
-if [ -z "$(tmux -V)" ]; then
-  xecho "Installing tmux ..."
-  brew install tmux
-  xecho "Done tmux!"
-else
-  xecho "Have exists: tmux"
-fi
-
+./install_macapp.sh
 
 xecho "Done!!!"
