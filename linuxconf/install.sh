@@ -25,7 +25,7 @@ if [ ! -e "$HOME/.oh-my-zsh" ]; then
   sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
   # 增加oh-my-zsh插件
-  ZSH_PLUGINS="(git brew colored-man-pages common-aliases cp tmux vi-mode wd)"
+  ZSH_PLUGINS="(git brew colored-man-pages common-aliases cp tmux wd)"
   xecho "change plugins=$ZSH_PLUGINS"
   sed -i "s/^plugins=(.*)/plugins=$ZSH_PLUGINS/" $HOME/.zshrc
   xecho "need relogin to active plugins"
