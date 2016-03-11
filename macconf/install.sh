@@ -9,6 +9,10 @@ function xecho {
 
 # switch zsh
 if [ "$SHELL" != "$(which zsh)" ]; then
+  if [ -z "$(which zsh)" ]; then
+    xecho "Error zsh not found"
+    exit -1
+  fi
   xecho "Need switch zsh ..."
   chsh -s $(which zsh) && xecho "Please logout and login back again"
   exit
