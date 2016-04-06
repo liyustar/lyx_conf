@@ -1,16 +1,49 @@
-unbind C-b
-set -g prefix C-z
+# 将r键设置为加载配置文件，并显示"reloaded!"信息  
+bind r source-file ~/.tmux.conf \; display "Reloaded!"  
 
-# bind a reload key
-bind r source-file $HOME/.tmux.conf
-# display-message "Config reloaded.."
+# 在panle上复制vi模式 
+setw -g mode-keys vi  				# 控制键+[ 进入复制状态后，采用vi模式
+bind-key -t vi-copy 'v' begin-selection		# 按v键开始复制,跟vi一样
+bind-key -t vi-copy y copy-pipe 'reattach-to-user-namespace pbcopy'  # 按y键复制，跟vi一样; 然后按控制键+]进行粘贴
 
-# Use vim keybindings in copy mode
-setw -g mode-keys vi
+# 设置PREFIX
+set-option -g prefix `				# 重新设置控制键
+bind ` send-prefix				# 重新设置控制键
+unbind C-b					# 重新设置控制键
 
-# invoke reattach-to-user-namespace every time a new window/pane opens
-set-option -g default-command "reattach-to-user-namespace -l zsh"
-# start selecting text typing 'v' key (once you are in copy mode)
-bind-key -t vi-copy v begin-selection
-# copy selected text to the system's clipboard
-bind-key -t vi-copy y copy-pipe "reattach-to-user-namespace pbcopy"
+# 新建panle
+unbind % 					# 解除除原有按键设置	
+unbind '"'					# 解除除原有按键设置	
+bind s split-window -v				# 上下拆分窗口
+bind v split-window -h				# 左右拆分窗口
+
+# 在不同pane中切换
+# 不同窗口切换使用控制键+数字
+bind h select-pane -L				# left
+bind j select-pane -D				# down
+bind k select-pane -U				# up
+bind l select-pane -R				# right
+
+# 窗口大小调节
+unbind Left					# 解除原有按键的设置
+unbind Right					# 解除原有按键的设置
+unbind Up					# 解除原有按键的设置
+unbind Down					# 解除原有按键的设置
+bind Left resize-pane -L 5
+bind Right resize-pane -R 5
+bind Up resize-pane -U 5
+bind Down resize-pane -D 5
+
+
+# 设置显示相关
+set -g default-terminal "screen-256color"  	# 设置终端颜色为256色  
+set-option -g status on				# 设置状态栏开启
+set -g status-fg green  			# 设置状态栏字体颜色
+set -g status-bg black  			# 设置状态栏背景色
+set -g status-utf8 on 				# 设置状态栏支持uft-8
+set-option -g base-index 1 			# 设置窗口序号从1开始
+set-option -g status-justify "centre"   	# 设置窗口序号在状态栏中居中显示
+set -g status-right '#[fg=green,bg=default]#(tmux-mem-cpu-load 1) %Y-%m-%d %l:%M:%S %p'  # 设置状态栏最右边显示内容
+
+# 解决ssh远程时候，窗口变化导致显示不正的问题
+set-window-option -g aggressive-resize
