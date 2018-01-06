@@ -1,0 +1,10 @@
+{
+    "server":"{{ ss_server }}",
+    "server_port":{{ ss_server_port }},
+    "local_address":"{{ ss_local_address }}",
+    "local_port":{{ ss_local_port }},
+    "password":"{{ ss_password }}",
+    "timeout":300,
+    "method":"{{ ss_method }}",
+    "fast_open": false
+}

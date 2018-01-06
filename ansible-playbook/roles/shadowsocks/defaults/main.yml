@@ -1,0 +1,10 @@
+# user passwd
+
+ss_home: "/etc/shadowsocks"
+
+ss_server: 127.0.0.1
+ss_server_port: 443
+ss_local_address: 127.0.0.1
+ss_local_port: 1080
+ss_password: passwd
+ss_method: aes-256-cfb

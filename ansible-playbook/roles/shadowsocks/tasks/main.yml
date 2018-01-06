@@ -1,0 +1,42 @@
+---
+
+# - include: setup-RedHat.yml
+#   when: ansible_os_family == 'RedHat'
+
+- include: setup-Debian.yml
+  when: ansible_os_family == 'Debian'
+
+
+- name: Install Shadowsocks.
+  pip:
+      name: shadowsocks
+      state: latest
+  # notify: restart shadowsocks
+
+
+- name: Assure shadowsocks homd dir exists.
+  file:
+      path: "{{ ss_home}}"
+      state: directory
+
+
+- name: Generate shadowsocks config file.
+  template:
+      src: sslocal.json
+      dest: "{{ ss_home }}/sslocal.json"
+  # notify: restart shadowsocks
+
+
+- name: Generate privoxy config file.
+  template:
+      src: privoxy.config
+      dest: "/etc/privoxy/config"
+  # notify: restart privoxy
+
+
+# - name: Ensure Shadowsocks is started and enabled at boot.
+#   service:
+#       name: shadowsocks
+#       state: started
+#       enabled: yes
+
