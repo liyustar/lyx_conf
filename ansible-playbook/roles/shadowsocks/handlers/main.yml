@@ -3,3 +3,9 @@
   service:
       name: shadowsocks
       state: restarted
+
+
+- name: restart privoxy
+  service:
+      name: privoxy
+      state: restarted

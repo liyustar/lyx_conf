@@ -31,7 +31,7 @@
   template:
       src: privoxy.config
       dest: "/etc/privoxy/config"
-  # notify: restart privoxy
+  notify: restart privoxy
 
 
 # - name: Ensure Shadowsocks is started and enabled at boot.
@@ -39,4 +39,11 @@
 #       name: shadowsocks
 #       state: started
 #       enabled: yes
+
+
+- name: Ensure Privoxy is started and enabled at boot.
+  service:
+      name: privoxy
+      state: started
+      enabled: yes
 
