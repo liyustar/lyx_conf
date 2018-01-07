@@ -1,0 +1,31 @@
+---
+- name: Add an Apt signing key, to remote.
+  copy:
+      src: apt-key.gpg
+      dest: "/tmp/apt-key.gpg"
+      mode: 0644
+
+- name: Add an Apt signing key, uses whichever key is at the URL
+  apt_key:
+      # url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+      file: "/tmp/apt-key.gpg"
+      state: present
+
+
+# Add specified repository into sources list using specified filename.
+- apt_repository:
+    repo: deb http://apt.kubernetes.io/ kubernetes-xenial main
+    state: present
+    filename: 'kubernetes'
+
+
+- name: Ensure dependices are installed.
+  apt:
+      name: "{{ item }}"
+      state: present
+      update_cache: yes
+  with_items:
+      - apt-transport-https
+      - kubelet
+      - kubeadm
+      - kubectl
