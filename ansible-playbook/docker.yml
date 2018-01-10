@@ -1,4 +1,4 @@
 ---
 - hosts: local
   roles:
-      - geerlingguy.docker
+      - { role: geerlingguy.docker, docker_install_compose: false }
